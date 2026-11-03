@@ -1,0 +1,21 @@
+# ==============================================================================
+# CONFIGURACIÓN DE DESPLIEGUE NETLIFY PARA ADORALASH.CL
+# Sitio 100% estático (Sin comandos de compilación como hugo / npm build)
+# ==============================================================================
+
+[build]
+  # Dejar vacío: No requiere comando de compilación (evita el error 'hugo: command not found')
+  command = ""
+  # Publicar la raíz del proyecto donde están index.html, style.css, main.js e images/
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy = "default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; img-src 'self' https: data:; frame-ancestors 'none'; form-action 'self' https://wa.me https://api.whatsapp.com;"

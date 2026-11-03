@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | Adora Lashes</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+  <style>
+    body { background-color: #F5EFEB; min-height: 100vh; display: flex; flex-direction: column; }
+    .admin-wrap { max-width: 720px; margin: 3rem auto; width: 90%; flex-grow: 1; }
+    .admin-card { background: #FFFFFF; border: 1px solid var(--blush-200); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-lg); }
+    .admin-header { text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--blush-200); padding-bottom: 1.5rem; }
+    .admin-header h1 { font-size: 2rem; color: var(--dark); margin-bottom: 0.3rem; }
+    .admin-header p { font-size: 0.88rem; color: var(--muted); }
+    .pin-screen { text-align: center; padding: 2rem 0; }
+    .pin-input { font-size: 1.8rem; letter-spacing: 8px; text-align: center; width: 200px; margin: 1rem auto; padding: 0.5rem; border: 2px solid var(--rose); border-radius: var(--radius-sm); outline: none; }
+    .admin-section { margin-bottom: 1.8rem; }
+    .admin-section h3 { font-size: 1.15rem; color: var(--rose); margin-bottom: 0.8rem; border-bottom: 1px dashed var(--blush-200); padding-bottom: 0.4rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--dark); text-transform: uppercase; margin-bottom: 0.4rem; display: block; }
+    .form-help { font-size: 0.76rem; color: var(--muted); margin-top: 0.3rem; }
+    .admin-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--blush-200); }
+    .status-badge-preview { display: inline-block; padding: 0.3rem 0.8rem; border-radius: var(--pill); font-size: 0.8rem; font-weight: 700; }
+    .status-open { background: #E8F5E9; color: #2E7D32; }
+    .status-limited { background: #FFF8E1; color: #F57F17; }
+    .status-closed { background: #FFEBEE; color: #C62828; }
+    .msg-toast { display: none; padding: 0.8rem; border-radius: var(--radius-sm); text-align: center; font-size: 0.88rem; font-weight: 600; margin-bottom: 1.2rem; }
+    .msg-success { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-wrap">
+    <div class="admin-card">
+      <div class="admin-header">
+        <h1>Adora Lashes ✨</h1>
+        <p>Panel de Control para la Dueña • Sin tocar código</p>
+      </div>
+
+      <div id="toast" class="msg-toast msg-success"></div>
+
+      <!-- Pantalla de Acceso con PIN -->
+      <div id="loginScreen" class="pin-screen">
+        <p>Ingresa tu PIN de administradora para editar:</p>
+        <input type="password" id="pinInput" class="pin-input" maxlength="6" placeholder="••••">
+        <br>
+        <button type="button" id="loginBtn" class="btn btn-primary">Ingresar al Panel</button>
+        <p class="form-help" style="margin-top:1rem">PIN predeterminado: <code>1234</code></p>
+      </div>
+
+      <!-- Formulario de Configuración -->
+      <form id="adminForm" style="display:none;" novalidate>
+        
+        <div class="admin-section">
+          <h3>1. Canal Oficial de WhatsApp</h3>
+          <div class="form-group">
+            <label for="waPhone">Enlace o Número de WhatsApp:</label>
+            <input type="text" id="waPhone" class="form-group input" style="width:100%; padding:0.75rem; border:1px solid var(--blush-200); border-radius:6px;" required>
+            <p class="form-help">Puedes colocar tu enlace QR (ej. <code>https://wa.me/qr/VRZJOHFBVE57G1</code>) o tu número con código (ej. <code>56912345678</code>).</p>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>2. Barra de Anuncios Superior</h3>
+          <div class="form-group">
+            <label for="announcementText">Texto del Anuncio en la Web:</label>
+            <input type="text" id="announcementText" class="form-group input" style="width:100%; padding:0.75rem; border:1px solid var(--blush-200); border-radius:6px;" maxlength="120" required>
+            <p class="form-help">Ej: "✨ Fibras Coreanas & 100% Higiene • Agendando citas esta semana en Talca"</p>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>3. Estado de la Agenda & Home Studio</h3>
+          <div class="form-group">
+            <label for="agendaStatus">Disponibilidad de Horas:</label>
+            <select id="agendaStatus" style="width:100%; padding:0.75rem; border:1px solid var(--blush-200); border-radius:6px;">
+              <option value="agendando">🟢 Agenda Abierta (Tomando Citas)</option>
+              <option value="ultimos_cupos">🟡 Últimos Cupos del Mes</option>
+              <option value="cerrada">🔴 Agenda Llena por Esta Semana</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top:1rem;">
+            <label for="hoursText">Horarios de Atención:</label>
+            <input type="text" id="hoursText" style="width:100%; padding:0.75rem; border:1px solid var(--blush-200); border-radius:6px;" placeholder="Lunes a Sábado: 10:00 - 20:30">
+          </div>
+
+          <div class="form-group" style="margin-top:1rem;">
+            <label for="locationNote">Sector del Home Studio en Talca:</label>
+            <input type="text" id="locationNote" style="width:100%; padding:0.75rem; border:1px solid var(--blush-200); border-radius:6px;" placeholder="Home Studio Climatizado (Talca)">
+            <p class="form-help">Por seguridad, la dirección exacta no se muestra en la web; se indica que se envía por WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <button type="submit" class="btn btn-primary">
+            💾 Guardar Cambios (Ver en Vivo)
+          </button>
+          
+          <button type="button" id="downloadBtn" class="btn btn-outline">
+            📥 Descargar config.json
+          </button>
+
+          <a href="index.html" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+            👁️ Ver Sitio Web Principal →
+          </a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+    const MASTER_PIN = '1234';
+    const CONFIG_KEY = 'adoralash_admin_config';
+
+    const loginScreen = document.getElementById('loginScreen');
+    const adminForm = document.getElementById('adminForm');
+    const pinInput = document.getElementById('pinInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const toast = document.getElementById('toast');
+
+    // Manejo de Login
+    loginBtn.addEventListener('click', () => {
+      if (pinInput.value.trim() === MASTER_PIN) {
+        loginScreen.style.display = 'none';
+        adminForm.style.display = 'block';
+        loadValues();
+      } else {
+        alert('PIN incorrecto. El PIN predeterminado es 1234.');
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    });
+
+    pinInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    // Cargar valores existentes
+    function loadValues() {
+      let cfg = {
+        whatsappPhone: "https://wa.me/qr/VRZJOHFBVE57G1",
+        announcement: "✨ Fibras Coreanas & 100% Higiene • Atención en Home Studio Climatizado en Talca • Cita Previa",
+        studioStatus: "agendando",
+        hours: "Lunes a Sábado: 10:00 - 20:30 (Previa reserva)",
+        locationNote: "Talca (Home Studio Privado - Dirección enviada al agendar por seguridad)"
+      };
+
+      const saved = localStorage.getItem(CONFIG_KEY);
+      if (saved) {
+        try { cfg = { ...cfg, ...JSON.parse(saved) }; } catch(e) {}
+      }
+
+      document.getElementById('waPhone').value = cfg.whatsappPhone || '';
+      document.getElementById('announcementText').value = cfg.announcement || '';
+      document.getElementById('agendaStatus').value = cfg.studioStatus || 'agendando';
+      document.getElementById('hoursText').value = cfg.hours || '';
+      document.getElementById('locationNote').value = cfg.locationNote || '';
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    // Guardar cambios
+    adminForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const cfg = {
+        whatsappPhone: document.getElementById('waPhone').value.trim(),
+        announcement: document.getElementById('announcementText').value.trim(),
+        studioStatus: document.getElementById('agendaStatus').value,
+        hours: document.getElementById('hoursText').value.trim(),
+        locationNote: document.getElementById('locationNote').value.trim()
+      };
+
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
+      showToast('✓ ¡Cambios guardados con éxito en este navegador!');
+    });
+
+    // Descargar config.json para subirlo al hosting
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const cfg = {
+        whatsappPhone: document.getElementById('waPhone').value.trim(),
+        announcement: document.getElementById('announcementText').value.trim(),
+        studioStatus: document.getElementById('agendaStatus').value,
+        hours: document.getElementById('hoursText').value.trim(),
+        locationNote: document.getElementById('locationNote').value.trim()
+      };
+
+      const blob = new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'config.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('✓ Descarga de config.json lista para actualizar.');
+    });
+  </script>
+</body>
+</html>

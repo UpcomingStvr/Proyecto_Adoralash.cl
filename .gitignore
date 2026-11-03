@@ -1,0 +1,5 @@
+.DS_Store
+.netlify/
+Thumbs.db
+__pycache__/
+*.pyc
