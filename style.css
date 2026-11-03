@@ -1,24 +1,24 @@
-/* ADORA LASHES - ESTÉTICA ALTA GAMA (Warm Cashmere, Nude Rosé & Deep Charcoal) */
+/* ADORA LASHES - ESTÉTICA ALTA GAMA (French Rosé Chic, Seda Macaron & Ébano Cassis) */
 :root {
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  --bg-page: #FBF9F7;
+  --bg-page: #FAF3F6;
   --bg-card: #FFFFFF;
-  --blush-50: #F8F3F0;
-  --blush-100: #F3EAE4;
-  --blush-200: #E7DAD3;
-  --rose: #B8727B;
-  --rose-hover: #9D5962;
-  --rose-light: #CC8A93;
-  --dark: #221C1E;
-  --muted: #6B6164;
+  --blush-50: #FFF3F6;
+  --blush-100: #FCE6EC;
+  --blush-200: #F7D2DD;
+  --rose: #CE657F;
+  --rose-hover: #B44F69;
+  --rose-light: #E0859C;
+  --dark: #261A1F;
+  --muted: #725D66;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --pill: 50px;
-  --shadow-sm: 0 4px 14px rgba(184, 114, 123, 0.08);
-  --shadow-md: 0 10px 28px rgba(184, 114, 123, 0.12);
-  --shadow-lg: 0 16px 40px rgba(184, 114, 123, 0.16);
+  --shadow-sm: 0 4px 14px rgba(206, 101, 127, 0.09);
+  --shadow-md: 0 10px 28px rgba(206, 101, 127, 0.13);
+  --shadow-lg: 0 16px 40px rgba(206, 101, 127, 0.17);
   --tr: all 0.25s ease;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,7 +45,7 @@ h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
 .btn-block { width: 100%; }
 
 /* Header & Barra Superior */
-.top-announcement { background: linear-gradient(90deg, #9C515B, #B86B76, #9C515B); color: #FFF; text-align: center; font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1rem; letter-spacing: 0.3px; }
+.top-announcement { background: linear-gradient(90deg, #B44F69, #CE657F, #B44F69); color: #FFF; text-align: center; font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1rem; letter-spacing: 0.3px; }
 .site-header { position: sticky; top: 0; background: rgba(250, 247, 246, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(236, 207, 199, 0.6); z-index: 100; padding: 0.75rem 0; }
 .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
 .brand-logo { text-decoration: none; display: flex; align-items: center; gap: 0.75rem; }

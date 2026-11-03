@@ -6,7 +6,7 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let waUrl = 'https://wa.me/qr/VRZJOHFBVE57G1';
+  let waPhone = '56956407107';
 
   // Cargar colores y textos guardados del diseñador si existen
   try {
@@ -34,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (t) t.textContent = cfg.announcement;
       }
       if (cfg.whatsappPhone) {
-        waUrl = cfg.whatsappPhone.startsWith('http') ? cfg.whatsappPhone : `https://wa.me/${cfg.whatsappPhone.replace(/\D/g, '')}`;
+        waPhone = cfg.whatsappPhone.replace(/\D/g, '') || '56956407107';
       }
     }).catch(() => {});
 
   const sendWa = (txt) => {
-    const url = waUrl.includes('wa.me/qr/') 
-      ? `https://api.whatsapp.com/send?text=${encodeURIComponent(txt)}`
-      : `${waUrl.split('?')[0]}?text=${encodeURIComponent(txt)}`;
+    const cleanPhone = waPhone.replace(/\D/g, '') || '56956407107';
+    const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(txt)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -240,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pinIn?.value.trim() === '1234') {
       pinStep.style.display = 'none';
       panelStep.style.display = 'block';
-      if (waIn) waIn.value = waUrl;
+      if (waIn) waIn.value = waPhone;
       if (bannerIn) bannerIn.value = document.querySelector('.top-announcement span')?.textContent || '';
     } else {
       alert('PIN incorrecto. (PIN de fábrica: 1234)');
@@ -257,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('secretSaveBtn')?.addEventListener('click', () => {
     const newWa = waIn?.value.trim(), newB = bannerIn?.value.trim();
-    if (newWa) waUrl = newWa.startsWith('http') ? newWa : `https://wa.me/${newWa.replace(/\D/g, '')}`;
+    if (newWa) waPhone = newWa.replace(/\D/g, '') || '56956407107';
     if (newB) {
       const el = document.querySelector('.top-announcement span');
       if (el) el.textContent = newB;
@@ -267,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('secretDownloadBtn')?.addEventListener('click', () => {
-    const cfg = { whatsappPhone: waIn?.value.trim() || waUrl, announcement: bannerIn?.value.trim() || '', studioStatus: "agendando" };
+    const cfg = { whatsappPhone: waIn?.value.trim() || waPhone, announcement: bannerIn?.value.trim() || '', studioStatus: "agendando" };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' }));
     a.download = 'config.json';
@@ -342,8 +341,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = btn.getAttribute('data-rose');
       const bl = btn.getAttribute('data-blush');
       const bg = btn.getAttribute('data-bg');
-      if (r) document.documentElement.style.setProperty('--rose', r);
-      if (bl) document.documentElement.style.setProperty('--blush-100', bl);
+      if (r) {
+        document.documentElement.style.setProperty('--rose', r);
+        document.documentElement.style.setProperty('--rose-light', r);
+      }
+      if (bl) {
+        document.documentElement.style.setProperty('--blush-100', bl);
+        document.documentElement.style.setProperty('--blush-50', bg || bl);
+      }
       if (bg) document.documentElement.style.setProperty('--bg-page', bg);
 
       const rInput = document.getElementById('customRoseColor');
