@@ -116,8 +116,14 @@
 
   <script>
     'use strict';
-    const MASTER_PIN = '741963852';
+    const sha256 = async (str) => {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('adoralash_talca_2026_salt_' + str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    };
+    const EXPECTED_HASH = '1332f31a9b613510157f33a31cb75dea40c5cd04c4be1f1f99c1c85491ce419d';
     const CONFIG_KEY = 'adoralash_admin_config';
+    let failedAttempts = 0;
+    let lockUntil = 0;
 
     const loginScreen = document.getElementById('loginScreen');
     const adminForm = document.getElementById('adminForm');
@@ -125,16 +131,34 @@
     const loginBtn = document.getElementById('loginBtn');
     const toast = document.getElementById('toast');
 
-    // Manejo de Login
-    loginBtn.addEventListener('click', () => {
-      if (pinInput.value.trim() === MASTER_PIN) {
+    // Manejo de Login con Criptografía y Protección Anti Fuerza Bruta
+    loginBtn.addEventListener('click', async () => {
+      const now = Date.now();
+      if (now < lockUntil) {
+        const waitSec = Math.ceil((lockUntil - now) / 1000);
+        alert(`⚠️ Demasiados intentos fallidos. Por seguridad, espera ${waitSec} segundos.`);
+        return;
+      }
+
+      const inputVal = pinInput.value.trim();
+      if (!inputVal) return;
+
+      const hash = await sha256(inputVal);
+      if (hash === EXPECTED_HASH) {
+        failedAttempts = 0;
         loginScreen.style.display = 'none';
         adminForm.style.display = 'block';
         loadValues();
       } else {
-        alert('PIN de acceso incorrecto.');
+        failedAttempts++;
         pinInput.value = '';
         pinInput.focus();
+        if (failedAttempts >= 3) {
+          lockUntil = Date.now() + 60000;
+          alert('⚠️ 3 intentos fallidos. Bloqueo temporal por 60 segundos por seguridad.');
+        } else {
+          alert(`PIN de acceso incorrecto. (Intento ${failedAttempts}/3)`);
+        }
       }
     });
 
@@ -146,7 +170,7 @@
     function loadValues() {
       let cfg = {
         whatsappPhone: "56956407107",
-        announcement: "✨ Fibras Coreanas & 100% Higiene • Atención en Home Studio Climatizado en Talca • Cita Previa",
+        announcement: "✨ Fibras Coreanas & 100% Higiene • Atención en Home Studio Cómodo y Privado en Talca • Cita Previa",
         studioStatus: "agendando",
         hours: "Lunes a Sábado: 10:00 - 20:30 (Previa reserva)",
         locationNote: "Talca (Home Studio Privado - Dirección enviada al agendar por seguridad)"

@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('bupaGoTo3')?.addEventListener('click', () => goToStep(3));
   document.getElementById('bupaBackTo2')?.addEventListener('click', () => goToStep(2));
 
-  // Paso 3: Confirmación Directa a WhatsApp
-  const clean = (s) => (s || '').replace(/[<>]/g, '').trim();
+  // Paso 3: Confirmación Directa a WhatsApp con Sanitización Estricta
+  const clean = (s) => (s || '').replace(/[<>"'&]/g, '').trim();
   const feedback = document.getElementById('formFeedback');
   const notify = (txt, cls) => { if (feedback) { feedback.textContent = txt; feedback.className = `form-feedback ${cls}`; } };
 
@@ -204,12 +204,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Panel Secreto de Administración (3 clics en Logo o Ctrl+Alt+A)
+  // Criptografía Web: Hash SHA-256 con Salt (Cero contraseñas en texto plano)
   const modal = document.getElementById('secretAdminModal');
   const pinStep = document.getElementById('secretPinStep');
   const panelStep = document.getElementById('secretPanelStep');
   const pinIn = document.getElementById('secretPinInput');
   const waIn = document.getElementById('adminWaInput');
   const bannerIn = document.getElementById('adminBannerInput');
+
+  const sha256 = async (str) => {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('adoralash_talca_2026_salt_' + str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  };
+  const PIN_HASH = '1332f31a9b613510157f33a31cb75dea40c5cd04c4be1f1f99c1c85491ce419d';
+  let pinAttempts = 0;
+  let lockExpiry = 0;
 
   const toggleModal = (show) => {
     if (!modal) return;
@@ -235,15 +244,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const checkPin = () => {
-    if (pinIn?.value.trim() === '741963852') {
+  const checkPin = async () => {
+    const now = Date.now();
+    if (now < lockExpiry) {
+      const wait = Math.ceil((lockExpiry - now) / 1000);
+      alert(`⚠️ Demasiados intentos fallidos. Por seguridad, espera ${wait} segundos.`);
+      return;
+    }
+
+    const val = pinIn?.value.trim() || '';
+    if (!val) return;
+
+    const hash = await sha256(val);
+    if (hash === PIN_HASH) {
+      pinAttempts = 0;
       pinStep.style.display = 'none';
       panelStep.style.display = 'block';
       if (waIn) waIn.value = waPhone;
       if (bannerIn) bannerIn.value = document.querySelector('.top-announcement span')?.textContent || '';
     } else {
-      alert('PIN de acceso incorrecto.');
+      pinAttempts++;
       pinIn.value = '';
+      if (pinAttempts >= 3) {
+        lockExpiry = Date.now() + 60000;
+        alert('⚠️ 3 intentos incorrectos. Bloqueo de seguridad activado por 60 segundos.');
+      } else {
+        alert(`PIN de acceso incorrecto. (Intento ${pinAttempts}/3)`);
+      }
     }
   };
 
@@ -293,6 +320,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Prevenir inyección de etiquetas HTML o scripts al pegar texto en modo diseñador
+  document.addEventListener('paste', (e) => {
+    if (!isDesignerMode) return;
+    const target = e.target;
+    if (target && target.isContentEditable) {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      const cleanText = (text || '').replace(/[<>]/g, '');
+      document.execCommand('insertText', false, cleanText);
+    }
+  });
+
   // Botón del modal para entrar a Diseñador Visual
   document.getElementById('startVisualEditBtn')?.addEventListener('click', () => {
     toggleModal(false);
@@ -318,7 +357,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Descargar el archivo index.html completo con todos los cambios hechos
   document.getElementById('downloadHtmlBtn')?.addEventListener('click', () => {
     setVisualEditState(false);
-    const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    const t = clone.querySelector('#designerToolbar');
+    if (t) t.style.display = 'none';
+    const c = clone.querySelector('#colorPopover');
+    if (c) c.style.display = 'none';
+    const m = clone.querySelector('#secretAdminModal');
+    if (m) m.style.display = 'none';
+
+    const fullHtml = '<!DOCTYPE html>\n' + clone.outerHTML;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([fullHtml], { type: 'text/html;charset=utf-8' }));
     a.download = 'index.html';
