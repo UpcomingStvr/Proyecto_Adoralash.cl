@@ -236,13 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const checkPin = () => {
-    if (pinIn?.value.trim() === '1234') {
+    if (pinIn?.value.trim() === '741963852') {
       pinStep.style.display = 'none';
       panelStep.style.display = 'block';
       if (waIn) waIn.value = waPhone;
       if (bannerIn) bannerIn.value = document.querySelector('.top-announcement span')?.textContent || '';
     } else {
-      alert('PIN incorrecto. (PIN de fábrica: 1234)');
+      alert('PIN de acceso incorrecto.');
       pinIn.value = '';
     }
   };

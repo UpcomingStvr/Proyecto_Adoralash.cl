@@ -36,7 +36,7 @@ Para evitar que las clientas se frenen ante formularios largos o tediosos, se tr
 
 ## ✏️ Modo Diseñador Visual (Editar Textos en Pantalla)
 
-- **Cómo entrar:** Haz **3 toques rápidos (triple clic)** en el logo de Adora Lashes (o pulsa `Ctrl + Alt + A`). Ingresa el PIN: `1234`.
+- **Cómo entrar:** Haz **3 toques rápidos (triple clic)** en el logo de Adora Lashes (o pulsa `Ctrl + Alt + A`). Ingresa el PIN: `741963852`.
 - **Edición en vivo:** Haz clic en cualquier texto del sitio para editarlo directamente en pantalla.
 - **Guardar y Descargar:** Guarda en el navegador o descarga el archivo `index.html` actualizado con 1 clic.
 
