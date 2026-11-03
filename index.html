@@ -459,15 +459,14 @@
         </div>
 
         <div class="bupa-card" id="bookingStepper">
-          <!-- Barra de Progreso Visual -->
+          <!-- Barra de Progreso Visual Minimalista -->
           <div class="stepper-header">
             <div class="stepper-progress-track">
-              <div class="stepper-progress-fill" id="progressFill" style="width: 33%;"></div>
+              <div class="stepper-progress-fill" id="progressFill" style="width: 50%;"></div>
             </div>
             <div class="stepper-steps-indicator">
-              <span class="step-num-pill active" id="pillStep1">1. Servicio</span>
-              <span class="step-num-pill" id="pillStep2">2. Momento</span>
-              <span class="step-num-pill" id="pillStep3">3. Tu Nombre</span>
+              <span class="step-num-pill active" id="pillStep1">1. Elige tu Mirada</span>
+              <span class="step-num-pill" id="pillStep2">2. Tu Nombre & Cupo</span>
             </div>
           </div>
 
@@ -476,96 +475,72 @@
             <input type="text" id="websiteTrap" name="website_trap" tabindex="-1" autocomplete="off">
           </div>
 
-          <!-- PASO 1: Selección de Servicio en 1 Clic -->
+          <!-- PASO 1: Selección de Efecto en 1 Clic -->
           <div class="bupa-step-pane" id="paneStep1">
-            <h3 class="bupa-question">¿Qué efecto deseas en tu mirada?</h3>
-            <p class="bupa-sub">Toca tu favorito para avanzar automáticamente:</p>
+            <h3 class="bupa-question">¿Qué efecto deseas lucir en tu mirada?</h3>
+            <p class="bupa-sub">Toca tu favorito para continuar de inmediato:</p>
             
             <div class="bupa-choices-grid">
               <button type="button" class="bupa-choice-btn" data-service="Las Clásicas (Pelo a Pelo)">
+                <span class="bupa-choice-badge">Efecto Natural</span>
                 <span class="bupa-choice-icon">🌿</span>
                 <span class="bupa-choice-info">
                   <strong>Las Clásicas</strong>
-                  <small>Efecto rímel sutil y diario</small>
+                  <small>Efecto rímel sutil para diario</small>
                 </span>
               </button>
 
               <button type="button" class="bupa-choice-btn featured-choice" data-service="Volumen Tupido">
+                <span class="bupa-choice-badge">Más Pedido ⭐</span>
                 <span class="bupa-choice-icon">👑</span>
                 <span class="bupa-choice-info">
-                  <strong>Volumen</strong>
-                  <small>Efecto tupido aterciopelado</small>
+                  <strong>Volumen Tupido</strong>
+                  <small>Densidad aterciopelada y glamour</small>
                 </span>
               </button>
 
               <button type="button" class="bupa-choice-btn" data-service="Wispy / Cat Eye">
+                <span class="bupa-choice-badge">Tendencia Chic</span>
                 <span class="bupa-choice-icon">✨</span>
                 <span class="bupa-choice-info">
                   <strong>Wispy o Cat Eye</strong>
-                  <small>Textura en espigas / rasgado</small>
+                  <small>Espigas en capas y efecto rasgado</small>
                 </span>
               </button>
 
               <button type="button" class="bupa-choice-btn" data-service="Lifting de Pestañas + Nutrición">
+                <span class="bupa-choice-badge">Pestaña Propia</span>
                 <span class="bupa-choice-icon">🌸</span>
                 <span class="bupa-choice-info">
                   <strong>Lifting + Tinte</strong>
-                  <small>Curvatura de tu propia pestaña</small>
+                  <small>Curvatura de tu pestaña natural</small>
                 </span>
               </button>
 
               <button type="button" class="bupa-choice-btn" data-service="Combo: Cejas x Pestañas Punto por Punto">
+                <span class="bupa-choice-badge">Mirada Total</span>
                 <span class="bupa-choice-icon">💖</span>
                 <span class="bupa-choice-info">
                   <strong>Cejas x Pestañas</strong>
-                  <small>Diseño integral de autor</small>
+                  <small>Diseño integral de alta definición</small>
                 </span>
               </button>
 
               <button type="button" class="bupa-choice-btn" data-service="Asesoría Personalizada / Ver Catálogo">
+                <span class="bupa-choice-badge">Asesoría Libre</span>
                 <span class="bupa-choice-icon">💬</span>
                 <span class="bupa-choice-info">
                   <strong>No estoy segura</strong>
-                  <small>Quiero asesoría en WhatsApp</small>
+                  <small>Quiero asesoría directa en WhatsApp</small>
                 </span>
               </button>
             </div>
           </div>
 
-          <!-- PASO 2: Momento y Horario en Chips Rápidos -->
+          <!-- PASO 2: Tu Nombre y Confirmación Directa a WhatsApp -->
           <div class="bupa-step-pane" id="paneStep2" style="display:none;">
-            <h3 class="bupa-question">¿Cuándo te gustaría venir?</h3>
-            <p class="bupa-sub">Selecciona tu disponibilidad preferida:</p>
-
-            <div class="chips-group">
-              <label class="chips-label">Día preferente:</label>
-              <div class="chips-row" id="dayChipsContainer">
-                <button type="button" class="time-chip active" data-val="Lo antes posible">⚡ Lo antes posible</button>
-                <button type="button" class="time-chip" data-val="Esta semana">📅 Esta semana</button>
-                <button type="button" class="time-chip" data-val="Próxima semana">🗓️ Próxima semana</button>
-                <button type="button" class="time-chip" data-val="Viernes o Sábado">🥂 Viernes o Sábado</button>
-              </div>
-            </div>
-
-            <div class="chips-group" style="margin-top:1.2rem;">
-              <label class="chips-label">Jornada del día:</label>
-              <div class="chips-row" id="timeChipsContainer">
-                <button type="button" class="time-chip active" data-val="Mañana (10:00 - 13:30)">☀️ Mañana</button>
-                <button type="button" class="time-chip" data-val="Tarde (14:30 - 18:00)">☕ Tarde</button>
-                <button type="button" class="time-chip" data-val="Vespertino (18:30 - 20:30)">🌙 Vespertino</button>
-              </div>
-            </div>
-
-            <div class="bupa-nav-actions">
-              <button type="button" class="btn btn-outline" id="bupaBackTo1">← Volver</button>
-              <button type="button" class="btn btn-primary" id="bupaGoTo3">Continuar →</button>
-            </div>
-          </div>
-
-          <!-- PASO 3: Solo Tu Nombre y Cierre Directo -->
-          <div class="bupa-step-pane" id="paneStep3" style="display:none;">
-            <h3 class="bupa-question">¡Último paso! ¿Cómo te llamas?</h3>
-            <p class="bupa-sub">Solo tu nombre para saber a quién esperamos:</p>
+            <h3 class="bupa-question">¡Casi listo! ¿Cómo te llamas?</h3>
+            <p class="bupa-sub">Solo tu nombre para atenderte de forma personalizada:</p>
 
             <div class="bupa-input-wrap">
               <input type="text" id="clientName" placeholder="Escribe tu nombre (Ej. Camila)" maxlength="40" class="bupa-name-input" autocomplete="name">
@@ -577,9 +552,14 @@
                 <strong id="summaryServiceText">Las Clásicas</strong>
               </div>
               <div class="summary-item">
-                <span class="sum-lbl">Preferencia:</span>
-                <strong id="summaryTimeText">Esta semana • Tarde</strong>
+                <span class="sum-lbl">Modalidad:</span>
+                <strong>Home Studio Privado en Talca</strong>
               </div>
+            </div>
+
+            <div class="bupa-trust-note">
+              <span>💬</span>
+              <p><strong>Coordinación directa por WhatsApp:</strong> La dueña te confirmará los días y horarios libres de esta semana de forma inmediata, sin lapsos rígidos ni confusiones.</p>
             </div>
 
             <div class="privacy-tiny-row">
@@ -590,9 +570,9 @@
             </div>
 
             <div class="bupa-nav-actions">
-              <button type="button" class="btn btn-outline" id="bupaBackTo2">← Cambiar</button>
+              <button type="button" class="btn btn-outline" id="bupaBackTo1">← Cambiar servicio</button>
               <button type="button" class="btn btn-primary btn-block-cta" id="bupaSubmitBooking">
-                Ver Cupos en WhatsApp 💬
+                Consultar Cupos en WhatsApp ✨
               </button>
             </div>
             

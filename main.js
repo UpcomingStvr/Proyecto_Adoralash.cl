@@ -96,76 +96,49 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // AGENDAMIENTO PSICOLÓGICAMENTE FÁCIL (ESTILO BUPA / 3 PASOS FLUIDOS)
+  // AGENDAMIENTO MODERNO DE 2 PASOS (Cero fricción / Coordinación en WhatsApp)
   // =========================================================================
   let bupaService = 'Las Clásicas (Pelo a Pelo)';
-  let bupaDay = 'Lo antes posible';
-  let bupaTime = 'Mañana (10:00 - 13:30)';
   let isSubmitting = false;
 
   const progressFill = document.getElementById('progressFill');
   const pill1 = document.getElementById('pillStep1');
   const pill2 = document.getElementById('pillStep2');
-  const pill3 = document.getElementById('pillStep3');
   const pane1 = document.getElementById('paneStep1');
   const pane2 = document.getElementById('paneStep2');
-  const pane3 = document.getElementById('paneStep3');
 
   const goToStep = (step) => {
     if (pane1) pane1.style.display = step === 1 ? 'block' : 'none';
     if (pane2) pane2.style.display = step === 2 ? 'block' : 'none';
-    if (pane3) pane3.style.display = step === 3 ? 'block' : 'none';
 
     if (pill1) pill1.classList.toggle('active', step >= 1);
     if (pill2) pill2.classList.toggle('active', step >= 2);
-    if (pill3) pill3.classList.toggle('active', step >= 3);
 
     if (progressFill) {
-      progressFill.style.width = step === 1 ? '33%' : (step === 2 ? '66%' : '100%');
+      progressFill.style.width = step === 1 ? '50%' : '100%';
     }
 
-    if (step === 3) {
+    if (step === 2) {
       const sumSrv = document.getElementById('summaryServiceText');
-      const sumTime = document.getElementById('summaryTimeText');
       if (sumSrv) sumSrv.textContent = bupaService;
-      if (sumTime) sumTime.textContent = `${bupaDay} • ${bupaTime.split(' ')[0]}`;
       const nameInput = document.getElementById('clientName');
       setTimeout(() => nameInput?.focus(), 120);
     }
   };
 
-  // Paso 1: Selección de Servicio en 1 Clic (Avanza automáticamente al Paso 2)
+  // Paso 1: Selección de Efecto en 1 Clic (Avanza fluidamente al Paso 2)
   document.querySelectorAll('.bupa-choice-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.bupa-choice-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       bupaService = btn.getAttribute('data-service') || bupaService;
-      setTimeout(() => goToStep(2), 200);
-    });
-  });
-
-  // Paso 2: Selección de Día y Jornada en Chips
-  document.querySelectorAll('#dayChipsContainer .time-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('#dayChipsContainer .time-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      bupaDay = chip.getAttribute('data-val') || bupaDay;
-    });
-  });
-
-  document.querySelectorAll('#timeChipsContainer .time-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('#timeChipsContainer .time-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      bupaTime = chip.getAttribute('data-val') || bupaTime;
+      setTimeout(() => goToStep(2), 180);
     });
   });
 
   document.getElementById('bupaBackTo1')?.addEventListener('click', () => goToStep(1));
-  document.getElementById('bupaGoTo3')?.addEventListener('click', () => goToStep(3));
-  document.getElementById('bupaBackTo2')?.addEventListener('click', () => goToStep(2));
 
-  // Paso 3: Confirmación Directa a WhatsApp con Sanitización Estricta
+  // Paso 2: Confirmación Directa a WhatsApp con Sanitización Estricta
   const clean = (s) => (s || '').replace(/[<>"'&]/g, '').trim();
   const feedback = document.getElementById('formFeedback');
   const notify = (txt, cls) => { if (feedback) { feedback.textContent = txt; feedback.className = `form-feedback ${cls}`; } };
@@ -190,11 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isSubmitting = true;
     notify('Abriendo WhatsApp oficial de forma segura...', 'success');
 
-    const msg = `¡Hola Adora Lashes! 🎀✨ Mi nombre es *${name}*. Deseo consultar disponibilidad en Talca:\n\n` +
-                `💖 *Servicio:* ${bupaService}\n` +
-                `📅 *Preferencia de día:* ${bupaDay}\n` +
-                `⏰ *Jornada:* ${bupaTime}\n\n` +
-                `¿Tienen cupo disponible? ¡Muchas gracias! 💕\n(Enviado desde adoralash.cl)`;
+    const msg = `¡Hola Adora Lashes! 🎀✨ Mi nombre es *${name}*. Me gustaría consultar los cupos disponibles para *${bupaService}* en Talca.\n\n¿Qué días u horarios tienes disponibles? ¡Muchas gracias! 💕\n(Enviado desde adoralash.cl)`;
 
     setTimeout(() => {
       sendWa(msg);
