@@ -170,8 +170,35 @@ h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
 .form-feedback.success { color: #2E7D32; }
 
 /* Botón Flotante WhatsApp & Footer */
-.whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #FFF; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4); z-index: 99; transition: var(--tr); text-decoration: none; }
-.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55); }
+.whatsapp-float {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  background: #25D366;
+  color: #FFF;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  z-index: 9999;
+  transition: var(--tr);
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+}
+
+/* Ocultar barra o drawer inyectado de Netlify si interfiere */
+[data-netlify-deploy-id],
+.netlify-drawer,
+#netlify-collaborative-tools,
+netlify-drawer-root {
+  display: none !important;
+}
 .site-footer { background: #1C1719; color: #FAF7F6; padding: 3rem 0 1.5rem; margin-top: 3.5rem; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-bottom: 1.8rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 .footer-brand .brand-title { color: #FFF; font-size: 1.5rem; }
@@ -616,5 +643,5 @@ html.dark-glam .site-footer {
   .timeline-tab-btn { width: 100%; }
   .bupa-card { padding: 1.6rem 1rem; }
   .bupa-question { font-size: 1.2rem; }
-  .whatsapp-float { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); right: calc(14px + env(safe-area-inset-right, 0px)); width: 48px; height: 48px; }
+  .whatsapp-float { bottom: calc(78px + env(safe-area-inset-bottom, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); width: 50px; height: 50px; }
 }
