@@ -574,6 +574,12 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const mainEl = document.querySelector('main');
       if (mainEl) {
+        // Resguardo: guardar copia de seguridad antes de sobreescribir
+        const currentSaved = localStorage.getItem('adoralash_saved_main_html');
+        if (currentSaved) {
+          localStorage.setItem('adoralash_backup_html', currentSaved);
+        }
+
         localStorage.setItem('adoralash_saved_main_html', mainEl.innerHTML);
         localStorage.setItem('adoralash_saved_ver', '2026.11-v2');
       }
@@ -586,6 +592,41 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('⚠️ Las fotos de alta resolución ocuparon la memoria local del navegador. Presiona "📥 Descargar Web" para descargar tu archivo index.html completo y listo.');
     }
   });
+
+  // Deshacer al guardado anterior (Punto de Restauración Rápido)
+  document.getElementById('undoVisualBtn')?.addEventListener('click', () => {
+    const backupHtml = localStorage.getItem('adoralash_backup_html');
+    if (!backupHtml) {
+      alert('ℹ️ No hay un guardado anterior registrado para deshacer.');
+      return;
+    }
+    if (confirm('↩️ ¿Deseas revertir la página al estado de tu guardado anterior?')) {
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        mainEl.innerHTML = backupHtml;
+        localStorage.setItem('adoralash_saved_main_html', backupHtml);
+      }
+      alert('✅ Se restauró el guardado anterior con éxito.');
+      window.location.reload();
+    }
+  });
+
+  // Restaurar Versión Original de Fábrica (Resguardo Absoluto a prueba de fallos)
+  const handleFactoryReset = () => {
+    const msg = '🛡️ RESGUARDO TOTAL DE SEGURIDAD:\n\n¿Estás segura de restaurar la página a la versión original de fábrica?\n\nEsto limpiará cualquier modificación accidental y recuperará al instante todos los textos, fotos y orden iniciales sin ningún error.';
+    if (confirm(msg)) {
+      localStorage.removeItem('adoralash_saved_main_html');
+      localStorage.removeItem('adoralash_saved_ver');
+      localStorage.removeItem('adoralash_saved_avatar');
+      localStorage.removeItem('adoralash_theme_colors');
+      localStorage.removeItem('adoralash_backup_html');
+      alert('✨ ¡Sitio original restaurado al 100%! La página se recargará ahora.');
+      window.location.reload();
+    }
+  };
+
+  document.getElementById('resetFactoryBtn')?.addEventListener('click', handleFactoryReset);
+  document.getElementById('secretResetFactoryBtn')?.addEventListener('click', handleFactoryReset);
 
   // Descargar el archivo index.html completo con todos los cambios hechos
   document.getElementById('downloadHtmlBtn')?.addEventListener('click', () => {

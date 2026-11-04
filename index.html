@@ -741,14 +741,25 @@
         <button type="button" id="secretDownloadBtn" class="btn btn-outline btn-block" style="margin-top:0.5rem; font-size:0.78rem;">
           📥 Descargar config.json para Netlify
         </button>
+
+        <!-- Resguardo de Seguridad Antierrores -->
+        <div style="margin-top:1.2rem; padding-top:1rem; border-top:1px dashed var(--blush-200); text-align:left;">
+          <label style="font-size:0.74rem; font-weight:700; color:var(--rose); text-transform:uppercase;">🛡️ Seguro Antierrores (Resguardo):</label>
+          <p style="font-size:0.75rem; color:var(--muted); margin:0.3rem 0 0.6rem;">¿Hiciste un cambio por error o se desordenó algo? Vuelve al estado inicial con un clic:</p>
+          <button type="button" id="secretResetFactoryBtn" class="btn btn-outline btn-block" style="font-size:0.78rem; border-color:#C62828; color:#C62828;">
+            🔄 Restaurar Versión Original de Fábrica
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Barra Flotante de Modo Diseñador Visual -->
+  <!-- Barra Flotante de Modo Diseñador Visual con Resguardo -->
   <div id="designerToolbar" class="designer-bar" style="display:none;" aria-hidden="true">
-    <span>✏️ Modo Diseñador (Haz clic en cualquier texto o foto para cambiar)</span>
+    <span>✏️ Modo Diseñador</span>
     <button type="button" id="toggleColorsBtn" class="designer-btn">🎨 Colores</button>
+    <button type="button" id="undoVisualBtn" class="designer-btn" title="Deshacer último guardado">↩️ Deshacer</button>
+    <button type="button" id="resetFactoryBtn" class="designer-btn" style="border-color:#EF5350;" title="Restaurar diseño original si algo se desordenó">🔄 Original</button>
     <button type="button" id="saveVisualBtn" class="designer-btn btn-save">💾 Guardar Cambios</button>
     <button type="button" id="downloadHtmlBtn" class="designer-btn">📥 Descargar Web</button>
     <button type="button" id="exitVisualBtn" class="designer-btn btn-exit">🔒 Salir</button>
