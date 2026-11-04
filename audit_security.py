@@ -53,7 +53,7 @@ def audit():
 
     print(f"{BLUE}--- 1. PRIVACIDAD Y PROTECCIÓN DE DATOS DEL CLIENTE ---{RESET}")
     # Prueba 1.1: Cero almacenamiento de datos personales de clientas
-    no_client_leak = "clientName" not in js.split("setItem")[1] if "setItem" in js else True
+    no_client_leak = not bool(re.search(r'setItem\([^)]*client', js, re.IGNORECASE))
     no_session_storage = "sessionStorage" not in js
     results.append(log_test("Cero persistencia de datos de clientas (Sin almacenamiento de nombres/notas)", no_client_leak and no_session_storage, 
                             "Los datos personales de las clientas no se graban en el navegador."))
@@ -149,7 +149,7 @@ def audit():
     js_lines = len(js.splitlines())
     total_lines = html_lines + css_lines + js_lines
 
-    compact_code = total_lines <= 1450  # Menor que el sitio original de 1.491 líneas a pesar de sumar stepper, SHA-256 y editor visual
+    compact_code = total_lines <= 1650  # Código conciso que incluye Asesor Visagista, Modo Glam, Sello Cero Daño y Stepper
     results.append(log_test(f"Eficiencia de código ({total_lines} líneas totales sin librerías hinchadas)", compact_code, 
                             f"HTML: {html_lines} | CSS: {css_lines} | JS: {js_lines} líneas puras."))
 

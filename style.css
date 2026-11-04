@@ -244,6 +244,54 @@ body.designer-mode-active [contenteditable="true"]:focus { outline: 2px solid va
 .btn-block-cta { width: 100%; max-width: 440px; font-size: 0.92rem; padding: 0.95rem; }
 .privacy-tiny-row { margin-bottom: 0.8rem; text-align: center; }
 
+/* Modo Glam Nocturno */
+html.dark-glam {
+  --bg-page: #181215;
+  --bg-card: #231A1F;
+  --blush-50: #2C1F26;
+  --blush-100: #3D2933;
+  --blush-200: #543444;
+  --dark: #FDF4F6;
+  --muted: #C4AAB5;
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+html.dark-glam .site-header { background: rgba(24, 18, 21, 0.95); border-bottom-color: #3D2933; }
+html.dark-glam .service-card, html.dark-glam .special-card, html.dark-glam .bupa-card, html.dark-glam .studio-box, html.dark-glam .care-card, html.dark-glam .zero-card { background: #231A1F; border-color: #543444; }
+html.dark-glam .bupa-choice-btn { background: #1E161B; border-color: #543444; }
+html.dark-glam .bupa-name-input { background: #1E161B; border-color: #543444; color: #FFF; }
+html.dark-glam .bupa-trust-note { background: rgba(61, 41, 51, 0.5); border-color: #543444; color: #FDF4F6; }
+html.dark-glam .zero-damage-box { background: linear-gradient(145deg, #231A1F, #2C1F26); border-color: #543444; }
+html.dark-glam .timeline-interactive-box { background: #231A1F; border-color: #543444; }
+
+.theme-toggle-btn { background: var(--blush-100); border: 1px solid var(--blush-200); border-radius: var(--pill); width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: var(--tr); }
+.theme-toggle-btn:hover { background: var(--rose); color: #FFF; transform: scale(1.05); }
+
+/* Asesor de Visagismo */
+.advisor-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+.advisor-result-card { background: var(--bg-card); border: 1.5px solid var(--rose); border-radius: var(--radius-md); padding: 1.2rem 1.4rem; margin-top: 1.2rem; box-shadow: var(--shadow-md); text-align: left; }
+.advisor-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; background: var(--blush-100); color: var(--rose); padding: 0.2rem 0.6rem; border-radius: var(--pill); margin-bottom: 0.5rem; }
+.advisor-result-card h4 { font-size: 1.15rem; color: var(--dark); margin-bottom: 0.4rem; }
+.advisor-result-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.45; margin-bottom: 0.9rem; }
+
+/* Sello Cero Daño */
+.zero-damage-box { background: linear-gradient(145deg, var(--bg-card), var(--blush-50)); border: 1.5px solid var(--blush-200); border-radius: var(--radius-lg); padding: 2.4rem 2rem; box-shadow: var(--shadow-md); }
+.zero-damage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-top: 1.6rem; }
+.zero-card { background: var(--bg-card); border: 1px solid var(--blush-200); border-radius: var(--radius-md); padding: 1.2rem; text-align: left; transition: var(--tr); }
+.zero-card:hover { transform: translateY(-3px); border-color: var(--rose); box-shadow: var(--shadow-sm); }
+.zero-icon { font-size: 1.8rem; display: block; margin-bottom: 0.5rem; }
+.zero-card h4 { font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--dark); }
+.zero-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+/* Línea de Tiempo Interactiva */
+.timeline-interactive-box { background: var(--bg-card); border: 1px solid var(--blush-200); border-radius: var(--radius-lg); padding: 1.8rem; margin-top: 1.6rem; text-align: center; }
+.timeline-tabs { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.timeline-tab-btn { background: var(--bg-page); border: 1px solid var(--blush-200); border-radius: var(--pill); padding: 0.5rem 1rem; font: inherit; font-size: 0.8rem; font-weight: 700; color: var(--muted); cursor: pointer; transition: var(--tr); }
+.timeline-tab-btn.active, .timeline-tab-btn:hover { background: var(--rose); color: #FFF; border-color: var(--rose); }
+.timeline-pane { display: none; text-align: left; max-width: 580px; margin: 0 auto; background: var(--blush-50); border: 1px dashed var(--rose); border-radius: var(--radius-sm); padding: 1rem 1.4rem; font-size: 0.85rem; line-height: 1.45; }
+.timeline-pane.active { display: block; }
+
 /* Responsive */
 @media (max-width: 900px) { .hero-grid, .specials-grid, .footer-grid { grid-template-columns: 1fr; } }
 @media (max-width: 768px) {

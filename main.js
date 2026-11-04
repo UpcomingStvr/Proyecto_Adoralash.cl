@@ -72,27 +72,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
-  // Asistente de Mirada
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.advisor-btn');
-    if (!btn || isDesignerMode) return;
-    document.querySelectorAll('.advisor-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const target = btn.getAttribute('data-target-service');
-    if (target) {
-      bupaService = target;
-      const bupaChoice = document.querySelector(`.bupa-choice-btn[data-service="${target}"]`);
-      if (bupaChoice) {
-        document.querySelectorAll('.bupa-choice-btn').forEach(b => b.classList.remove('selected'));
-        bupaChoice.classList.add('selected');
-      }
+  // Modo Glam Nocturno (Dark Mode Chic)
+  const themeToggle = document.getElementById('themeToggleBtn');
+  try {
+    if (localStorage.getItem('adoralash_dark_mode') === 'true') {
+      document.documentElement.classList.add('dark-glam');
+      if (themeToggle) themeToggle.textContent = '☀️';
     }
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('card-highlight'));
-    const match = document.querySelector(`.service-card[data-card-id="${target}"]`);
-    if (match) {
-      match.classList.add('card-highlight');
-      match.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (e) {}
+  themeToggle?.addEventListener('click', () => {
+    const active = document.documentElement.classList.toggle('dark-glam');
+    if (themeToggle) themeToggle.textContent = active ? '☀️' : '🌙';
+    try { localStorage.setItem('adoralash_dark_mode', active ? 'true' : 'false'); } catch (e) {}
+  });
+
+  // Asesor Interactivo de Visagismo según Forma de Ojo
+  const eyeData = {
+    encapotado: {
+      title: 'Efecto Wispy en Curva D',
+      badge: 'Ideal Párpado Encapotado',
+      desc: 'Para párpado caído o encapotado, la curvatura D combinada con espigas Wispy proyecta la fibra por encima del pliegue natural, abriendo la mirada de inmediato y disimulando la pesadez del párpado.',
+      service: 'Wispy / Cat Eye'
+    },
+    redondo: {
+      title: 'Efecto Cat Eye (Ojo de Gato)',
+      badge: 'Ideal Ojos Redondos',
+      desc: 'El diseño ascendente con longitud progresiva hacia la esquina exterior alarga visualmente el ojo, estilizándolo con un acabado delineado felino sumamente femenino.',
+      service: 'Wispy / Cat Eye'
+    },
+    pequeno: {
+      title: 'Volumen Tupido Aterciopelado',
+      badge: 'Ideal Ojos Pequeños / Almendrados',
+      desc: 'Aporta tridimensionalidad, profundidad y un efecto máscara intenso que hace ver los ojos más grandes, despiertos y fotogénicos.',
+      service: 'Volumen Tupido'
+    },
+    rectas: {
+      title: 'Lifting de Pestañas + Nutrición de Keratina',
+      badge: 'Ideal Pestañas Rectas hacia abajo',
+      desc: 'Eleva tu propia pestaña natural desde la raíz en 90°, fijando una curvatura permanente con tinte y nutrición profunda sin necesidad de extensiones.',
+      service: 'Lifting de Pestañas + Nutrición'
     }
+  };
+
+  document.querySelectorAll('.advisor-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.advisor-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const eye = btn.getAttribute('data-eye');
+      const info = eyeData[eye];
+      if (!info) return;
+
+      const t = document.getElementById('advisorResultTitle');
+      const b = document.getElementById('advisorResultBadge');
+      const d = document.getElementById('advisorResultDesc');
+      const adopt = document.getElementById('advisorAdoptBtn');
+      if (t) t.textContent = info.title;
+      if (b) b.textContent = info.badge;
+      if (d) d.textContent = info.desc;
+      if (adopt) adopt.setAttribute('data-service', info.service);
+    });
+  });
+
+  document.getElementById('advisorAdoptBtn')?.addEventListener('click', (e) => {
+    const srv = e.currentTarget.getAttribute('data-service') || 'Las Clásicas (Pelo a Pelo)';
+    bupaService = srv;
+    const matchBtn = document.querySelector(`.bupa-choice-btn[data-service="${srv}"]`);
+    if (matchBtn) {
+      document.querySelectorAll('.bupa-choice-btn').forEach(b => b.classList.remove('selected'));
+      matchBtn.classList.add('selected');
+    }
+    goToStep(2);
+    document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Línea de Tiempo Interactiva de Retoques
+  document.querySelectorAll('.timeline-tab-btn').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.timeline-tab-btn').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const num = tab.getAttribute('data-tab');
+      document.querySelectorAll('.timeline-pane').forEach(p => p.classList.remove('active'));
+      const activePane = document.getElementById(`timelineDay${num}`);
+      if (activePane) activePane.classList.add('active');
+    });
   });
 
   // =========================================================================

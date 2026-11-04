@@ -77,6 +77,7 @@
         <a href="#cuidados">Cuidados</a>
         <a href="#galeria">Trabajos</a>
         <a href="#agendar" class="btn btn-primary btn-sm">Agendar Cita</a>
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambiar tema" title="Modo Glam Nocturno">🌙</button>
       </nav>
 
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
@@ -164,24 +165,32 @@
             Técnicas realizadas con fibras coreanas ultralivianas para cuidar la salud de tu pestaña natural. Consulta nuestro catálogo en WhatsApp para evaluar la ideal para ti.
           </p>
 
-          <!-- Asistente Interactivo de Mirada -->
+          <!-- Asesor Interactivo de Visagismo según Forma de Ojo -->
           <div class="style-advisor">
-            <span class="advisor-title">¿Qué efecto deseas lograr en tu mirada?</span>
+            <span class="advisor-title">👁️ Asesor de Visagismo: ¿Cuál es tu tipo de ojo?</span>
+            <p class="advisor-sub">Toca la forma de tus ojos para descubrir tu técnica ideal de autor:</p>
             <div class="advisor-options">
-              <button type="button" class="advisor-btn" data-target-service="Las Clásicas (Pelo a Pelo)">
-                🌿 Sutil & Diario (Clásicas)
+              <button type="button" class="advisor-btn active" data-eye="encapotado">
+                👁️ Párpado Encapotado / Caído
               </button>
-              <button type="button" class="advisor-btn" data-target-service="Volumen">
-                👑 Tupido & Envolvente (Volumen)
+              <button type="button" class="advisor-btn" data-eye="redondo">
+                👀 Ojos Redondos
               </button>
-              <button type="button" class="advisor-btn" data-target-service="Cat Eye (Ojo de Gato)">
-                🐱 Rasgada & Delineada (Cat Eye)
+              <button type="button" class="advisor-btn" data-eye="pequeno">
+                ✨ Ojos Pequeños / Almendrados
               </button>
-              <button type="button" class="advisor-btn" data-target-service="Wispy">
-                ✨ Textura & Puntas (Wispy)
+              <button type="button" class="advisor-btn" data-eye="rectas">
+                🌿 Pestañas Rectas hacia abajo
               </button>
-              <button type="button" class="advisor-btn" data-target-service="Lifting de Pestañas">
-                🌸 Curvatura Natural (Lifting)
+            </div>
+
+            <!-- Tarjeta Dinámica de Recomendación -->
+            <div class="advisor-result-card" id="advisorResultCard">
+              <span class="advisor-badge" id="advisorResultBadge">Recomendación Visagista</span>
+              <h4 id="advisorResultTitle">Efecto Wispy en Curva D</h4>
+              <p id="advisorResultDesc">Para párpado caído o encapotado, la curvatura D combinada con espigas Wispy proyecta la fibra por encima del pliegue natural, abriendo la mirada de inmediato y disimulando la pesadez del párpado.</p>
+              <button type="button" class="btn btn-sm btn-primary" id="advisorAdoptBtn" data-service="Wispy / Cat Eye">
+                Elegir este estilo en el agendador →
               </button>
             </div>
           </div>
@@ -289,6 +298,41 @@
               </a>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sello de Confianza: Garantía de Cero Daño a la Pestaña Natural -->
+    <section class="section zero-damage-section">
+      <div class="container">
+        <div class="zero-damage-box">
+          <div class="section-head text-center" style="margin-bottom:1.2rem;">
+            <span class="section-kicker">Compromiso Salud Ocular</span>
+            <h2>Sello de Cero Daño a tu Pestaña Natural</h2>
+            <p class="section-desc">¿Miedo a que tus pestañas se debiliten o caigan? En Adora Lashes aplicamos protocolos estrictos para cuidar tu folículo:</p>
+          </div>
+          <div class="zero-damage-grid">
+            <div class="zero-card">
+              <span class="zero-icon">✨</span>
+              <h4>Aislamiento 1 a 1 Estricto</h4>
+              <p>Cada extensión se adhiere a un único pelo natural adulto. Cero pestañas unidas o grumos de pegamento.</p>
+            </div>
+            <div class="zero-card">
+              <span class="zero-icon">🪶</span>
+              <h4>Fibras Peso Plumón</h4>
+              <p>Fibras coreanas de 0.05mm a 0.07mm que pesan menos que tu propio pelo. Tu folículo no sufre tracción ni fatiga.</p>
+            </div>
+            <div class="zero-card">
+              <span class="zero-icon">🧪</span>
+              <h4>Adhesivo Grado Médico</h4>
+              <p>Polímero certificado de secado controlado con emisión mínima de vapores. Cero ojos rojos o irritación.</p>
+            </div>
+            <div class="zero-card">
+              <span class="zero-icon">🧴</span>
+              <h4>Higiene & Cepillo de Regalo</h4>
+              <p>Esterilización de pinzas en calor seco y goupillon individual nuevo de regalo en cada sesión para tu hogar.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -427,6 +471,31 @@
             <h4>Mantenimiento & Retoques Cada 15 a 21 Días</h4>
             <p>Es totalmente natural perder entre <strong>2 a 5 pestañas diarias</strong> por el ciclo biológico de regeneración folicular (anágeno y telógeno). Para mantener tu set tupido y equilibrado, agenda tu retoque cada 2 o 3 semanas con al menos el 40% del set conservado.</p>
           </article>
+        </div>
+
+        <!-- Línea de Tiempo Interactiva del Set & Retoques -->
+        <div class="timeline-interactive-box">
+          <span class="section-kicker">Planifica tu Mirada</span>
+          <h3>¿Cómo evoluciona tu set en el tiempo?</h3>
+          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Toca cada etapa para ver cómo luce y cuándo es tu momento óptimo de retoque:</p>
+
+          <div class="timeline-tabs">
+            <button type="button" class="timeline-tab-btn active" data-tab="14">Día 1 al 14: Mirada Plena ✨</button>
+            <button type="button" class="timeline-tab-btn" data-tab="21">Día 15 al 21: Retoque Ideal ⭐</button>
+            <button type="button" class="timeline-tab-btn" data-tab="28">Día 25+: Renovación Completa 🔄</button>
+          </div>
+
+          <div class="timeline-pane active" id="timelineDay14">
+            <p><strong>✨ Estado del set (85% - 100%):</strong> Tus pestañas lucen tupidas, alineadas y firmes. Solo requieres lavado diario con lash shampoo oil-free y cepillado matutino en seco.</p>
+          </div>
+
+          <div class="timeline-pane" id="timelineDay21">
+            <p><strong>⭐ Momento óptimo de retoque (50% - 60% conservado):</strong> Se remueven extensiones crecidas por el ciclo natural y se reponen los espacios nuevos. Es la cita más rápida, cómoda y económica para mantener tu mirada siempre perfecta.</p>
+          </div>
+
+          <div class="timeline-pane" id="timelineDay28">
+            <p><strong>🔄 Renovación de set (Menos del 40%):</strong> Tu pestaña natural ha completado gran parte de su ciclo biológico de caída y crecimiento. Se recomienda un retiro higiénico con removedor en crema y postura de un set nuevo desde cero.</p>
+          </div>
         </div>
       </div>
     </section>
