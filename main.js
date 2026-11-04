@@ -378,9 +378,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Reemplazo interactivo de fotos con optimización inteligente por Canvas (alta calidad y peso liviano)
+  // Reemplazo interactivo y ajuste de encuadre (posicionamiento y zoom) de fotos
   let activeImageToReplace = null;
   const hiddenPhotoInput = document.getElementById('hiddenPhotoInput');
+  const photoAdjustModal = document.getElementById('photoAdjustModal');
+  const closePhotoModal = document.getElementById('closePhotoModal');
+  const triggerUploadBtn = document.getElementById('triggerUploadBtn');
+  const applyPhotoModalBtn = document.getElementById('applyPhotoModalBtn');
+  const posXRange = document.getElementById('posXRange');
+  const posYRange = document.getElementById('posYRange');
+  const zoomRange = document.getElementById('zoomRange');
+  const posXVal = document.getElementById('posXVal');
+  const posYVal = document.getElementById('posYVal');
+  const zoomVal = document.getElementById('zoomVal');
+
+  const updateImageTransform = () => {
+    if (!activeImageToReplace) return;
+    const x = posXRange ? posXRange.value : 50;
+    const y = posYRange ? posYRange.value : 50;
+    const z = zoomRange ? (zoomRange.value / 100).toFixed(2) : '1.00';
+    
+    if (posXVal) posXVal.textContent = `${x}%`;
+    if (posYVal) posYVal.textContent = `${y}%`;
+    if (zoomVal) zoomVal.textContent = `${(zoomRange.value / 100).toFixed(1)}x`;
+
+    activeImageToReplace.style.objectPosition = `${x}% ${y}%`;
+    if (parseFloat(z) > 1.0) {
+      activeImageToReplace.style.transform = `scale(${z})`;
+    } else {
+      activeImageToReplace.style.transform = '';
+    }
+  };
+
+  const openPhotoAdjust = (img) => {
+    activeImageToReplace = img;
+    let curX = 50, curY = 50, curZ = 100;
+    const posMatch = (img.style.objectPosition || '').match(/(\d+)%\s+(\d+)%/);
+    if (posMatch) {
+      curX = parseInt(posMatch[1], 10);
+      curY = parseInt(posMatch[2], 10);
+    }
+    const scaleMatch = (img.style.transform || '').match(/scale\(([\d.]+)\)/);
+    if (scaleMatch) {
+      curZ = Math.round(parseFloat(scaleMatch[1]) * 100);
+    }
+    if (posXRange) posXRange.value = curX;
+    if (posYRange) posYRange.value = curY;
+    if (zoomRange) zoomRange.value = curZ;
+    if (posXVal) posXVal.textContent = `${curX}%`;
+    if (posYVal) posYVal.textContent = `${curY}%`;
+    if (zoomVal) zoomVal.textContent = `${(curZ / 100).toFixed(1)}x`;
+
+    if (photoAdjustModal) {
+      photoAdjustModal.style.display = 'flex';
+      photoAdjustModal.setAttribute('aria-hidden', 'false');
+    }
+  };
+
+  const closePhotoAdjust = () => {
+    if (photoAdjustModal) {
+      photoAdjustModal.style.display = 'none';
+      photoAdjustModal.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  closePhotoModal?.addEventListener('click', closePhotoAdjust);
+  applyPhotoModalBtn?.addEventListener('click', () => {
+    closePhotoAdjust();
+    alert('✅ Encuadre listo. Presiona "💾 Guardar Cambios" para que quede guardado.');
+  });
+
+  posXRange?.addEventListener('input', updateImageTransform);
+  posYRange?.addEventListener('input', updateImageTransform);
+  zoomRange?.addEventListener('input', updateImageTransform);
+
+  document.querySelectorAll('.photo-pos-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const x = btn.getAttribute('data-x');
+      const y = btn.getAttribute('data-y');
+      if (x !== null && y !== null && posXRange && posYRange) {
+        posXRange.value = x;
+        posYRange.value = y;
+        updateImageTransform();
+      }
+    });
+  });
+
+  triggerUploadBtn?.addEventListener('click', () => {
+    hiddenPhotoInput?.click();
+  });
 
   const optimizeImage = (file, isAvatar = false) => {
     return new Promise((resolve, reject) => {
@@ -422,8 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     e.preventDefault();
     e.stopPropagation();
-    activeImageToReplace = img;
-    hiddenPhotoInput?.click();
+    openPhotoAdjust(img);
   });
 
   hiddenPhotoInput?.addEventListener('change', async (e) => {
@@ -437,16 +522,14 @@ document.addEventListener('DOMContentLoaded', () => {
       activeImageToReplace.removeAttribute('srcset');
 
       activeImageToReplace.style.transition = 'transform 0.3s ease, filter 0.3s ease';
-      activeImageToReplace.style.transform = 'scale(1.05)';
       activeImageToReplace.style.filter = 'brightness(1.12)';
       setTimeout(() => {
         if (activeImageToReplace) {
-          activeImageToReplace.style.transform = '';
           activeImageToReplace.style.filter = '';
         }
       }, 500);
 
-      alert('✨ ¡Foto actualizada en alta definición! Recuerda presionar "💾 Guardar Cambios" para guardarla.');
+      alert('✨ ¡Foto cargada en alta calidad! Ahora puedes ajustar el encuadre con los deslizadores y presionar "Listo".');
     } catch (err) {
       alert('Hubo un detalle al procesar la foto. Intenta con un archivo JPG o PNG.');
     } finally {

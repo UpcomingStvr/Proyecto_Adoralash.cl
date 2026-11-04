@@ -757,6 +757,63 @@
   <!-- Selector oculto para subida directa de fotos en alta calidad -->
   <input type="file" id="hiddenPhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none;" aria-hidden="true">
 
+  <!-- Modal Chic para Encuadre y Reemplazo de Foto -->
+  <div id="photoAdjustModal" class="secret-admin-modal" style="display:none;" aria-hidden="true">
+    <div class="secret-admin-card" style="max-width: 440px;">
+      <button type="button" class="secret-close" id="closePhotoModal" aria-label="Cerrar">&times;</button>
+      <h3 style="font-size:1.2rem; margin-bottom:0.3rem;">📸 Ajustar Encuadre y Foto</h3>
+      <p style="font-size:0.8rem; color:var(--muted); margin-bottom:1rem;">Elige qué parte de la foto deseas enfocar en pantalla:</p>
+      
+      <!-- Botón para subir o cambiar foto -->
+      <button type="button" id="triggerUploadBtn" class="btn btn-outline btn-block" style="margin-bottom:1.2rem; font-size:0.82rem;">
+        📁 Subir / Cambiar por otra foto
+      </button>
+
+      <!-- Presets Rápidos -->
+      <div style="margin-bottom:1rem; text-align:left;">
+        <label style="font-size:0.75rem; font-weight:700; color:var(--rose); text-transform:uppercase;">Enfoque rápido:</label>
+        <div class="quick-status-btns" style="margin-top:0.3rem;">
+          <button type="button" class="quick-btn photo-pos-btn" data-x="50" data-y="15">👁️ Pestañas / Arriba</button>
+          <button type="button" class="quick-btn photo-pos-btn" data-x="50" data-y="50">🎯 Centro</button>
+          <button type="button" class="quick-btn photo-pos-btn" data-x="50" data-y="85">⬇️ Abajo</button>
+          <button type="button" class="quick-btn photo-pos-btn" data-x="25" data-y="50">⬅️ Izquierda</button>
+          <button type="button" class="quick-btn photo-pos-btn" data-x="75" data-y="50">➡️ Derecha</button>
+        </div>
+      </div>
+
+      <!-- Controles con Sliders en Tiempo Real -->
+      <div style="background:var(--bg-page); border:1px solid var(--blush-200); border-radius:var(--radius-sm); padding:0.9rem; margin-bottom:1.2rem; text-align:left;">
+        <div style="margin-bottom:0.75rem;">
+          <div style="display:flex; justify-content:space-between; font-size:0.74rem; font-weight:700; color:var(--dark); margin-bottom:0.2rem;">
+            <span>↕️ Mover Arriba / Abajo:</span>
+            <span id="posYVal">50%</span>
+          </div>
+          <input type="range" id="posYRange" min="0" max="100" value="50" style="width:100%; accent-color:var(--rose); cursor:pointer;">
+        </div>
+
+        <div style="margin-bottom:0.75rem;">
+          <div style="display:flex; justify-content:space-between; font-size:0.74rem; font-weight:700; color:var(--dark); margin-bottom:0.2rem;">
+            <span>↔️ Mover Izquierda / Derecha:</span>
+            <span id="posXVal">50%</span>
+          </div>
+          <input type="range" id="posXRange" min="0" max="100" value="50" style="width:100%; accent-color:var(--rose); cursor:pointer;">
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:0.74rem; font-weight:700; color:var(--dark); margin-bottom:0.2rem;">
+            <span>🔍 Zoom al detalle del ojo:</span>
+            <span id="zoomVal">1.0x</span>
+          </div>
+          <input type="range" id="zoomRange" min="100" max="180" value="100" style="width:100%; accent-color:var(--rose); cursor:pointer;">
+        </div>
+      </div>
+
+      <button type="button" id="applyPhotoModalBtn" class="btn btn-primary btn-block">
+        ✅ Listo (Aplicar Encuadre)
+      </button>
+    </div>
+  </div>
+
   <!-- Popover Flotante de Paletas y Selector de Colores -->
   <div id="colorPopover" class="color-picker-popover" style="display:none;" aria-hidden="true">
     <h4>Paletas Trending Chic & Colores</h4>

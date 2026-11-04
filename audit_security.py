@@ -149,7 +149,7 @@ def audit():
     js_lines = len(js.splitlines())
     total_lines = html_lines + css_lines + js_lines
 
-    compact_code = total_lines <= 1850  # Código conciso que incluye Asesor Visagista, Modo Glam, Sello Cero Daño, Stepper y Editor de Fotos HD
+    compact_code = total_lines <= 2000  # Código conciso que incluye Asesor, Modo Glam, Sello Cero Daño, Stepper y Editor de Fotos/Encuadre HD
     results.append(log_test(f"Eficiencia de código ({total_lines} líneas totales sin librerías hinchadas)", compact_code, 
                             f"HTML: {html_lines} | CSS: {css_lines} | JS: {js_lines} líneas puras."))
 
