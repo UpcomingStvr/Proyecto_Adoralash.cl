@@ -732,7 +732,7 @@
         </div>
 
         <button type="button" id="startVisualEditBtn" class="btn btn-primary btn-block" style="background:#2E7D32; border-color:#4CAF50; margin-bottom:1rem;">
-          ✏️ Activar Modo Diseñador (Editar Textos en Pantalla)
+          ✏️ Activar Modo Diseñador (Editar Textos y Fotos en Pantalla)
         </button>
 
         <button type="button" id="secretSaveBtn" class="btn btn-primary btn-block">
@@ -747,12 +747,15 @@
 
   <!-- Barra Flotante de Modo Diseñador Visual -->
   <div id="designerToolbar" class="designer-bar" style="display:none;" aria-hidden="true">
-    <span>✏️ Modo Diseñador (Haz clic en cualquier texto para editarlo)</span>
+    <span>✏️ Modo Diseñador (Haz clic en cualquier texto o foto para cambiar)</span>
     <button type="button" id="toggleColorsBtn" class="designer-btn">🎨 Colores</button>
     <button type="button" id="saveVisualBtn" class="designer-btn btn-save">💾 Guardar Cambios</button>
     <button type="button" id="downloadHtmlBtn" class="designer-btn">📥 Descargar Web</button>
     <button type="button" id="exitVisualBtn" class="designer-btn btn-exit">🔒 Salir</button>
   </div>
+
+  <!-- Selector oculto para subida directa de fotos en alta calidad -->
+  <input type="file" id="hiddenPhotoInput" accept="image/png, image/jpeg, image/webp" style="display:none;" aria-hidden="true">
 
   <!-- Popover Flotante de Paletas y Selector de Colores -->
   <div id="colorPopover" class="color-picker-popover" style="display:none;" aria-hidden="true">

@@ -198,6 +198,37 @@ body.designer-mode-active [contenteditable="true"] { outline: 1.5px dashed var(-
 body.designer-mode-active [contenteditable="true"]:hover { outline-color: #2E7D32 !important; background-color: rgba(255, 255, 255, 0.4); }
 body.designer-mode-active [contenteditable="true"]:focus { outline: 2px solid var(--rose) !important; background-color: #FFFFFF; }
 
+body.designer-mode-active img {
+  outline: 2.5px dashed var(--rose) !important;
+  outline-offset: -3px;
+  cursor: pointer !important;
+  transition: transform 0.25s ease, filter 0.25s ease, outline-color 0.25s ease;
+}
+body.designer-mode-active img:hover {
+  outline: 2.5px solid #2E7D32 !important;
+  filter: brightness(0.92) contrast(1.05);
+}
+body.designer-mode-active .work-thumb::after,
+body.designer-mode-active .gallery-item::after,
+body.designer-mode-active .card-img-header::after,
+body.designer-mode-active .special-img-wrap::after {
+  content: "📷 Cambiar Foto";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(30, 22, 27, 0.88);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--pill);
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
 /* Barra Flotante del Diseñador */
 .designer-bar { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: #1C1719; color: #FFFFFF; padding: 0.5rem 1rem; border-radius: var(--pill); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); z-index: 10001; display: flex; align-items: center; gap: 0.6rem; max-width: 95vw; flex-wrap: wrap; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.15); }
 .designer-bar span { font-size: 0.76rem; font-weight: 600; color: #EADFD8; }

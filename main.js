@@ -25,9 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const mainEl = document.querySelector('main');
         if (mainEl) mainEl.innerHTML = savedHtml;
       }
+      const savedAvatar = localStorage.getItem('adoralash_saved_avatar');
+      if (savedAvatar) {
+        const av = document.querySelector('.brand-avatar-mini img');
+        if (av) av.src = savedAvatar;
+      }
     } else {
       localStorage.removeItem('adoralash_saved_main_html');
       localStorage.removeItem('adoralash_saved_ver');
+      localStorage.removeItem('adoralash_saved_avatar');
     }
   } catch (e) {}
 
@@ -372,6 +378,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Reemplazo interactivo de fotos con optimización inteligente por Canvas (alta calidad y peso liviano)
+  let activeImageToReplace = null;
+  const hiddenPhotoInput = document.getElementById('hiddenPhotoInput');
+
+  const optimizeImage = (file, isAvatar = false) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = isAvatar ? 400 : 1200;
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', isAvatar ? 0.88 : 0.86));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!isDesignerMode) return;
+    const img = e.target.closest('img');
+    if (!img) return;
+    if (img.closest('.designer-bar') || img.closest('.color-picker-popover') || img.closest('.secret-admin-modal')) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    activeImageToReplace = img;
+    hiddenPhotoInput?.click();
+  });
+
+  hiddenPhotoInput?.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeImageToReplace) return;
+
+    try {
+      const isAvatar = Boolean(activeImageToReplace.closest('.brand-avatar-mini') || activeImageToReplace.closest('.insta-avatar-large'));
+      const optimizedData = await optimizeImage(file, isAvatar);
+      activeImageToReplace.src = optimizedData;
+      activeImageToReplace.removeAttribute('srcset');
+
+      activeImageToReplace.style.transition = 'transform 0.3s ease, filter 0.3s ease';
+      activeImageToReplace.style.transform = 'scale(1.05)';
+      activeImageToReplace.style.filter = 'brightness(1.12)';
+      setTimeout(() => {
+        if (activeImageToReplace) {
+          activeImageToReplace.style.transform = '';
+          activeImageToReplace.style.filter = '';
+        }
+      }, 500);
+
+      alert('✨ ¡Foto actualizada en alta definición! Recuerda presionar "💾 Guardar Cambios" para guardarla.');
+    } catch (err) {
+      alert('Hubo un detalle al procesar la foto. Intenta con un archivo JPG o PNG.');
+    } finally {
+      hiddenPhotoInput.value = '';
+    }
+  });
+
   // Botón del modal para entrar a Diseñador Visual
   document.getElementById('startVisualEditBtn')?.addEventListener('click', () => {
     toggleModal(false);
@@ -383,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setVisualEditState(false);
   });
 
-  // Guardar Cambios de Texto y Colores en el navegador
+  // Guardar Cambios de Texto, Fotos y Colores en el navegador
   document.getElementById('saveVisualBtn')?.addEventListener('click', () => {
     try {
       const mainEl = document.querySelector('main');
@@ -391,9 +473,13 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('adoralash_saved_main_html', mainEl.innerHTML);
         localStorage.setItem('adoralash_saved_ver', '2026.11-v2');
       }
-      alert('💾 ¡Todos tus cambios de texto y colores quedaron guardados!');
+      const av = document.querySelector('.brand-avatar-mini img');
+      if (av && av.src && av.src.startsWith('data:')) {
+        localStorage.setItem('adoralash_saved_avatar', av.src);
+      }
+      alert('💾 ¡Todos tus cambios de texto, fotos y colores quedaron guardados!');
     } catch (e) {
-      alert('Guardado correctamente.');
+      alert('⚠️ Las fotos de alta resolución ocuparon la memoria local del navegador. Presiona "📥 Descargar Web" para descargar tu archivo index.html completo y listo.');
     }
   });
 
