@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sendWa = (txt) => {
     const cleanPhone = waPhone.replace(/\D/g, '') || '56956407107';
-    const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(txt)}`;
+    const url = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(txt)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
