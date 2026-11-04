@@ -17,10 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (th.blush) document.documentElement.style.setProperty('--blush-100', th.blush);
       if (th.bg) document.documentElement.style.setProperty('--bg-page', th.bg);
     }
-    const savedHtml = localStorage.getItem('adoralash_saved_main_html');
-    if (savedHtml) {
-      const mainEl = document.querySelector('main');
-      if (mainEl) mainEl.innerHTML = savedHtml;
+    const savedVer = localStorage.getItem('adoralash_saved_ver');
+    const CURRENT_VER = '2026.11-v2';
+    if (savedVer === CURRENT_VER) {
+      const savedHtml = localStorage.getItem('adoralash_saved_main_html');
+      if (savedHtml) {
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.innerHTML = savedHtml;
+      }
+    } else {
+      localStorage.removeItem('adoralash_saved_main_html');
+      localStorage.removeItem('adoralash_saved_ver');
     }
   } catch (e) {}
 
@@ -64,10 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mobileBtn && navMenu) {
     mobileBtn.addEventListener('click', () => {
       const open = navMenu.classList.toggle('open');
+      mobileBtn.classList.toggle('active', open);
       mobileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       navMenu.classList.remove('open');
+      mobileBtn.classList.remove('active');
       mobileBtn.setAttribute('aria-expanded', 'false');
     }));
   }
@@ -378,7 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('saveVisualBtn')?.addEventListener('click', () => {
     try {
       const mainEl = document.querySelector('main');
-      if (mainEl) localStorage.setItem('adoralash_saved_main_html', mainEl.innerHTML);
+      if (mainEl) {
+        localStorage.setItem('adoralash_saved_main_html', mainEl.innerHTML);
+        localStorage.setItem('adoralash_saved_ver', '2026.11-v2');
+      }
       alert('💾 ¡Todos tus cambios de texto y colores quedaron guardados!');
     } catch (e) {
       alert('Guardado correctamente.');
