@@ -279,26 +279,284 @@ body.designer-mode-active .special-img-wrap::after {
 .btn-block-cta { width: 100%; max-width: 440px; font-size: 0.92rem; padding: 0.95rem; }
 .privacy-tiny-row { margin-bottom: 0.8rem; text-align: center; }
 
-/* Modo Glam Nocturno */
+/* ==========================================================================
+   MODO GLAM NOCTURNO (Luxury Midnight Cassis & Velvet Rose Gold)
+   Diseño de alta costura, contraste perfecto y elegancia editorial.
+   ========================================================================== */
 html.dark-glam {
-  --bg-page: #181215;
-  --bg-card: #231A1F;
-  --blush-50: #2C1F26;
-  --blush-100: #3D2933;
-  --blush-200: #543444;
-  --dark: #FDF4F6;
-  --muted: #C4AAB5;
-  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --bg-page: #130D11 !important;
+  --bg-card: #1D141A !important;
+  --blush-50: #251921 !important;
+  --blush-100: #331E2A !important;
+  --blush-200: #4D2B3D !important;
+  --rose: #D96E8A !important;
+  --rose-light: #E888A1 !important;
+  --rose-hover: #BF5370 !important;
+  --dark: #FFF0F4 !important;
+  --muted: #CDB3BE !important;
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
 }
-html.dark-glam .site-header { background: rgba(24, 18, 21, 0.95); border-bottom-color: #3D2933; }
-html.dark-glam .service-card, html.dark-glam .special-card, html.dark-glam .bupa-card, html.dark-glam .studio-box, html.dark-glam .care-card, html.dark-glam .zero-card { background: #231A1F; border-color: #543444; }
-html.dark-glam .bupa-choice-btn { background: #1E161B; border-color: #543444; }
-html.dark-glam .bupa-name-input { background: #1E161B; border-color: #543444; color: #FFF; }
-html.dark-glam .bupa-trust-note { background: rgba(61, 41, 51, 0.5); border-color: #543444; color: #FDF4F6; }
-html.dark-glam .zero-damage-box { background: linear-gradient(145deg, #231A1F, #2C1F26); border-color: #543444; }
-html.dark-glam .timeline-interactive-box { background: #231A1F; border-color: #543444; }
+
+html.dark-glam body {
+  background-color: #130D11 !important;
+  color: #FFF0F4 !important;
+}
+
+html.dark-glam h1,
+html.dark-glam h2,
+html.dark-glam h3,
+html.dark-glam h4,
+html.dark-glam .brand-name,
+html.dark-glam .insta-user,
+html.dark-glam .stat-num,
+html.dark-glam strong {
+  color: #FFF0F4 !important;
+}
+
+html.dark-glam .section-desc,
+html.dark-glam .hero-perks,
+html.dark-glam .stat-lbl,
+html.dark-glam .card-features li,
+html.dark-glam .service-card p,
+html.dark-glam .care-card p,
+html.dark-glam .zero-card p,
+html.dark-glam .studio-box p,
+html.dark-glam .advisor-sub,
+html.dark-glam .advisor-result-card p,
+html.dark-glam .bupa-sub,
+html.dark-glam .summary-item .sum-lbl,
+html.dark-glam .privacy-check {
+  color: #CDB3BE !important;
+}
+
+/* Header & Navegación en Modo Oscuro */
+html.dark-glam .site-header {
+  background: rgba(19, 13, 17, 0.95) !important;
+  border-bottom: 1px solid #38212F !important;
+}
+html.dark-glam .nav-menu a:not(.btn) {
+  color: #FFF0F4 !important;
+}
+html.dark-glam .nav-menu a:not(.btn):hover {
+  color: var(--rose) !important;
+}
+html.dark-glam .nav-special {
+  background: #331E2A !important;
+  color: #E888A1 !important;
+  border-color: #4D2B3D !important;
+}
+html.dark-glam .nav-menu {
+  background: #181015 !important;
+  border-bottom-color: #4D2B3D !important;
+}
+html.dark-glam .mobile-menu-btn span {
+  background: #FFF0F4 !important;
+}
+html.dark-glam .theme-toggle-btn {
+  background: #331E2A !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+
+/* Tarjetas y Contenedores */
+html.dark-glam .service-card,
+html.dark-glam .special-card,
+html.dark-glam .bupa-card,
+html.dark-glam .studio-box,
+html.dark-glam .care-card,
+html.dark-glam .zero-card,
+html.dark-glam .instagram-card-mockup,
+html.dark-glam .clean-form {
+  background: #1D141A !important;
+  border-color: #4D2B3D !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark-glam .service-card:hover,
+html.dark-glam .special-card:hover,
+html.dark-glam .zero-card:hover {
+  border-color: var(--rose) !important;
+  box-shadow: 0 14px 34px rgba(217, 110, 138, 0.22) !important;
+}
+
+/* Secciones con degradado suave chic */
+html.dark-glam .specials-section {
+  background: linear-gradient(180deg, #181015 0%, #1D131A 100%) !important;
+  border-color: #38212F !important;
+}
+html.dark-glam .care-section {
+  background: linear-gradient(180deg, #130D11 0%, #1D131A 100%) !important;
+  border-color: #38212F !important;
+}
+html.dark-glam .care-card.care-full {
+  background: linear-gradient(135deg, #22161E 0%, #2A1A25 100%) !important;
+  border-color: var(--rose) !important;
+}
+html.dark-glam .zero-damage-box {
+  background: linear-gradient(145deg, #1D141A, #251921) !important;
+  border-color: #4D2B3D !important;
+}
+html.dark-glam .zero-card {
+  background: #181015 !important;
+  border-color: #38212F !important;
+}
+
+/* Asesor de Visagismo */
+html.dark-glam .style-advisor {
+  background: #22161E !important;
+  border-color: #4D2B3D !important;
+}
+html.dark-glam .advisor-btn {
+  background: #181015 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .advisor-btn:hover,
+html.dark-glam .advisor-btn.active {
+  background: var(--rose) !important;
+  color: #FFF !important;
+  border-color: var(--rose) !important;
+}
+html.dark-glam .advisor-result-card {
+  background: #1D141A !important;
+  border-color: var(--rose) !important;
+}
+html.dark-glam .advisor-badge {
+  background: #331E2A !important;
+  color: #E888A1 !important;
+}
+
+/* Línea de Tiempo */
+html.dark-glam .timeline-interactive-box {
+  background: #1D141A !important;
+  border-color: #4D2B3D !important;
+}
+html.dark-glam .timeline-tab-btn {
+  background: #181015 !important;
+  border-color: #4D2B3D !important;
+  color: #CDB3BE !important;
+}
+html.dark-glam .timeline-tab-btn.active,
+html.dark-glam .timeline-tab-btn:hover {
+  background: var(--rose) !important;
+  color: #FFF !important;
+  border-color: var(--rose) !important;
+}
+html.dark-glam .timeline-pane {
+  background: #251921 !important;
+  border-color: var(--rose) !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .timeline-pane strong {
+  color: #FFF !important;
+}
+
+/* Agendamiento Stepper Bupa (Eliminación total de fondo blanco en hover/select) */
+html.dark-glam .bupa-choice-btn {
+  background: #181015 !important;
+  border-color: #38212F !important;
+}
+html.dark-glam .bupa-choice-btn:hover,
+html.dark-glam .bupa-choice-btn.selected {
+  background: #281923 !important;
+  border-color: var(--rose) !important;
+  box-shadow: 0 8px 24px rgba(217, 110, 138, 0.28) !important;
+}
+html.dark-glam .bupa-choice-info strong {
+  color: #FFF0F4 !important;
+}
+html.dark-glam .bupa-choice-info small {
+  color: #CDB3BE !important;
+}
+html.dark-glam .bupa-choice-badge {
+  background: #331E2A !important;
+  color: #E888A1 !important;
+  border: 1px solid #4D2B3D !important;
+}
+html.dark-glam .featured-choice .bupa-choice-badge {
+  background: var(--rose) !important;
+  color: #FFF !important;
+  border: none !important;
+}
+html.dark-glam .bupa-name-input {
+  background: #181015 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .bupa-name-input:focus {
+  background: #22161E !important;
+  border-color: var(--rose) !important;
+  color: #FFF0F4 !important;
+  box-shadow: 0 0 0 3px rgba(217, 110, 138, 0.25) !important;
+}
+html.dark-glam .bupa-trust-note {
+  background: #251921 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .bupa-trust-note strong {
+  color: #FFF !important;
+}
+html.dark-glam .bupa-summary-card {
+  background: #251921 !important;
+  border-color: var(--rose) !important;
+}
+html.dark-glam .summary-item strong {
+  color: #FFF0F4 !important;
+}
+
+/* Avisos y Detalles */
+html.dark-glam .bio-highlight-box {
+  background: #1D141A !important;
+  border-left-color: var(--rose) !important;
+  color: #CDB3BE !important;
+}
+html.dark-glam .studio-privacy-notice {
+  background: #251921 !important;
+  border-color: var(--rose) !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .studio-badge,
+html.dark-glam .profile-pill {
+  background: #331E2A !important;
+  border-color: #4D2B3D !important;
+  color: #E888A1 !important;
+}
+
+/* Modales y Paneles Administrativos */
+html.dark-glam .secret-admin-card {
+  background: #1F151B !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .secret-input {
+  background: #181015 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF !important;
+}
+html.dark-glam .quick-btn {
+  background: #2A1A25 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .color-picker-popover {
+  background: #1F151B !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+html.dark-glam .preset-theme-btn {
+  background: #181015 !important;
+  border-color: #4D2B3D !important;
+  color: #FFF0F4 !important;
+}
+
+/* Footer en Modo Oscuro */
+html.dark-glam .site-footer {
+  background: #0E090C !important;
+  border-top: 1px solid #331E2A !important;
+}
 
 .theme-toggle-btn { background: var(--blush-100); border: 1px solid var(--blush-200); border-radius: var(--pill); width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; transition: var(--tr); flex-shrink: 0; }
 .theme-toggle-btn:hover { background: var(--rose); color: #FFF; transform: scale(1.06); }

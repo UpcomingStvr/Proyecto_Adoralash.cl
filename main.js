@@ -8,14 +8,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   let waPhone = '56956407107';
 
-  // Cargar colores y textos guardados del diseñador si existen
+  // Cargar colores y textos guardados del diseñador si existen (en modo claro)
   try {
-    const savedTheme = localStorage.getItem('adoralash_theme_colors');
-    if (savedTheme) {
-      const th = JSON.parse(savedTheme);
-      if (th.rose) document.documentElement.style.setProperty('--rose', th.rose);
-      if (th.blush) document.documentElement.style.setProperty('--blush-100', th.blush);
-      if (th.bg) document.documentElement.style.setProperty('--bg-page', th.bg);
+    const isDark = localStorage.getItem('adoralash_dark_mode') === 'true';
+    if (!isDark) {
+      const savedTheme = localStorage.getItem('adoralash_theme_colors');
+      if (savedTheme) {
+        const th = JSON.parse(savedTheme);
+        if (th.rose) document.documentElement.style.setProperty('--rose', th.rose);
+        if (th.blush) document.documentElement.style.setProperty('--blush-100', th.blush);
+        if (th.bg) document.documentElement.style.setProperty('--bg-page', th.bg);
+      }
     }
     const savedVer = localStorage.getItem('adoralash_saved_ver');
     const CURRENT_VER = '2026.11-v2';
@@ -93,12 +96,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('adoralash_dark_mode') === 'true') {
       document.documentElement.classList.add('dark-glam');
       if (themeToggle) themeToggle.textContent = '☀️';
+      document.documentElement.style.removeProperty('--bg-page');
+      document.documentElement.style.removeProperty('--blush-100');
+      document.documentElement.style.removeProperty('--blush-50');
     }
   } catch (e) {}
   themeToggle?.addEventListener('click', () => {
     const active = document.documentElement.classList.toggle('dark-glam');
     if (themeToggle) themeToggle.textContent = active ? '☀️' : '🌙';
-    try { localStorage.setItem('adoralash_dark_mode', active ? 'true' : 'false'); } catch (e) {}
+    try {
+      localStorage.setItem('adoralash_dark_mode', active ? 'true' : 'false');
+      if (active) {
+        document.documentElement.style.removeProperty('--bg-page');
+        document.documentElement.style.removeProperty('--blush-100');
+        document.documentElement.style.removeProperty('--blush-50');
+      } else {
+        const savedTheme = localStorage.getItem('adoralash_theme_colors');
+        if (savedTheme) {
+          const th = JSON.parse(savedTheme);
+          if (th.rose) document.documentElement.style.setProperty('--rose', th.rose);
+          if (th.blush) document.documentElement.style.setProperty('--blush-100', th.blush);
+          if (th.bg) document.documentElement.style.setProperty('--bg-page', th.bg);
+        }
+      }
+    } catch (e) {}
   });
 
   // Asesor Interactivo de Visagismo según Forma de Ojo
